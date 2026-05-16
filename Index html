@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>V8 LUXURY - مستشار العطور الذكي</title>
+    <style>
+        :root {
+            --primary: #1b4332; /* الأخضر الخشبي الفخم */
+            --secondary: #d4af37; /* الذهبي الكلاسيكي */
+            --dark: #111111;
+            --light: #f8f9fa;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--dark);
+            color: var(--light);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .quiz-container {
+            background-color: #1a1a1a;
+            border: 2px solid var(--primary);
+            border-radius: 15px;
+            padding: 30px;
+            max-width: 600px;
+            width: 100%;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+        }
+        h1, h2 {
+            text-align: center;
+            color: var(--secondary);
+            margin-bottom: 25px;
+        }
+        .question-card {
+            display: none;
+        }
+        .question-card.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        .options-list {
+            list-style: none;
+            padding: 0;
+        }
+        .option-btn {
+            background-color: #262626;
+            border: 1px solid #404040;
+            color: var(--light);
+            padding: 15px;
+            margin-bottom: 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            text-align: right;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        .option-btn:hover {
+            border-color: var(--secondary);
+            background-color: var(--primary);
+            transform: translateX(-5px);
+        }
+        .result-box {
+            display: none;
+            border-top: 2px dashed var(--secondary);
+            padding-top: 20px;
+            margin-top: 20px;
+        }
+        .badge {
+            display: inline-block;
+            background-color: var(--primary);
+            color: var(--secondary);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        pre {
+            background-color: #000;
+            padding: 15px;
+            border-radius: 5px;
+            color: #00ff00;
+            direction: ltr;
+            overflow-x: auto;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+<div class="quiz-container">
+    <h1>V8 LUXURY ⚜️</h1>
+    <p style="text-align: center; color: #aaa;">أجب عن الأسئلة لنحلل شخصيتك ونصمم عطر "الغامض" و "السر" الخاص بك</p>
+    
+    <div class="question-card active" id="q1">
+        <h2>1. ما هو اللباس المفضل لديك في المناسبات؟</h2>
+        <div class="options-list">
+            <button class="option-btn" onclick="nextQuestion('q1', 'q2', 'classic', 3)">بدلة كلاسيكية أو لباس تقليدي فخم</button>
+            <button class="option-btn" onclick="nextQuestion('q1', 'q2', 'modern', 3)">لباس عصري، سبور كلاسيكي ومواكب للموضة</button>
+            <button class="option-btn" onclick="nextQuestion('q1', 'q2', 'sporty', 3)">ملابس رياضية مريحة وحيوية</button>
+        </div>
+    </div>
+
+    <div class="question-card" id="q2">
+        <h2>2. ما هو الأثر أو الانطباع الذي تحب أن تتركه خلفك؟</h2>
+        <div class="options-list">
+            <button class="option-btn" onclick="nextQuestion('q2', 'q3', 'classic', 4)">فرض الهيبة والوقار (حضور ثقيل)</button>
+            <button class="option-btn" onclick="nextQuestion('q2', 'q3', 'modern', 4)">الجاذبية، الغموض والتميز اللامع</button>
+            <button class="option-btn" onclick="nextQuestion('q2', 'q3', 'sporty', 4)">الانتعاش، الحيوية والنقاء</button>
+        </div>
+    </div>
+
+    <div class="question-card" id="q3">
+        <h2>3. إذا خُيّرت بين هذه الروائح، ماذا تختار غريزياً؟</h2>
+        <div class="options-list">
+            <button class="option-btn" onclick="endQuiz('q3', 'classic', 3)">رائحة الجلود، القهوة السوداء والأخشاب الدافئة</button>
+            <button class="option-btn" onclick="endQuiz('q3', 'modern', 3)">رائحة التوابل الدافئة، العنبر والزهور النادرة</button>
+            <button class="option-btn" onclick="endQuiz('q3', 'sporty', 3)">رائحة البحر المالح، الحمضيات والانتعاش الجبلي</button>
+        </div>
+    </div>
+
+    <div class="result-box" id="result">
+        <h2>تحليل شخصيتك العطرية جاهز!</h2>
+        <div style="text-align: center;">
+            <span class="badge" id="character-type">جاري التحليل...</span>
+        </div>
+        <p id="analysis-text" style="line-height: 1.6; text-align: justify;"></p>
+        
+        <hr style="border-color: #333; margin: 20px 0;">
+        <h3 style="color: var(--secondary);">📋 خلاصة الطلب (الكود البرمجي لسيستم المتجر):</h3>
+        <p style="font-size: 14px; color: #888;">انسخ هذا الكود وأرسله لنا لإتمام عملية التجهيز الفوري:</p>
+        <pre id="json-output"></pre>
+    </div>
+</div>
+
+<script>
+    // تخزين النقاط لكل طابع شخصية
+    let scores = {
+        classic: 0,
+        modern: 0,
+        sporty: 0
+    };
+
+    // الانتقال للسؤال التالي وجمع النقاط
+    function nextQuestion(currentId, nextId, type, points) {
+        scores[type] += points;
+        document.getElementById(currentId).classList.remove('active');
+        document.getElementById(nextId).classList.add('active');
+    }
+
+    // إنهاء الاختبار وعرض النتائج والخلاصة الـ JSON
+    function endQuiz(currentId, type, points) {
+        scores[type] += points;
+        document.getElementById(currentId).classList.remove('active');
+        
+        // تحديد الشخصية الطاغية بناءً على أعلى النقاط
+        let finalCharacter = Object.keys(scores).reduce((a, b) => scores[a] > scores[b] ? a : b);
+        
+        let characterName = "";
+        let analysis = "";
+        let suggestedGhamid = [];
+        let suggestedSirr = [];
+
+        if (finalCharacter === 'classic') {
+            characterName = "شخصية كلاسيكية قيادية (Prestige & Power)";
+            analysis = "أنت شخص تعشق الفخامة الاستثنائية وتبحث عن فرض الهيبة والوقار في أي مكان تحل به. تميل للروائح العميقة والثابتة التي تعكس النضج والاتزان.";
+            suggestedGhamid = ["Premium Leather", "Black Coffee", "Agarwood"];
+            suggestedSirr = ["Smoked Wood & Amber"];
+        } else if (finalCharacter === 'modern') {
+            characterName = "شخصية عصرية غامضة (Modern & Mysterious)";
+            analysis = "شخصيتك جذابة، تحب التميز ومواكبة العصر بروح فريدة. يستهويك الغموض وتبحث عن عطر يلفت الانتباه ويكون بمثابة شفرة خاصة بك لا يشبهها أحد.";
+            suggestedGhamid = ["Dark Amber", "Spicy Saffron", "Cardamom"];
+            suggestedSirr = ["Oud-Modern Fusion"];
+        } else {
+            characterName = "شخصية رياضية حيوية (Dynamic & Fresh)";
+            analysis = "تتمتع بروح حركية، مفعمة بالنشاط والطاقة الإيجابية. تعشق الحرية والانتعاش الدائم، ولذلك فإن النوتات البحرية والحمضية اللاذعة هي المرآة الحقيقية لروحك.";
+            suggestedGhamid = ["Sea Salt Accord", "Italian Bergamot", "Mint Leaves"];
+            suggestedSirr = ["Citrus-Woody Freshness"];
+        }
+
+        // عرض النتيجة للزبون في الواجهة
+        document.getElementById('character-type').innerText = characterName;
+        document.getElementById('analysis-text').innerText = analysis;
+
+        // توليد خلاصة الكود (JSON Summary) لصاحب المتجر
+        let orderSummary = {
+            "timestamp": new Date().toISOString().split('T')[0],
+            "customer_analysis": {
+                "dominant_trait": finalCharacter.toUpperCase(),
+                "profile_title": characterName,
+                "scores_metric": scores
+            },
+            "suggested_trilogy": {
+                "perfume_1_ana": "حسب اختيار الزبون المباشر",
+                "perfume_2_al_ghamid": {
+                    "vibe": "مستوحى من تحليل الشخصية أعلاه",
+                    "recommended_notes": suggestedGhamid
+                },
+                "perfume_3_al_sirr": {
+                    "vibe": "دمج مبتكر بين 'أنا' و 'الغامض'",
+                    "recommended_notes": suggestedSirr
+                }
+            }
+        };
+
+        // طباعة الكود في خانة الـ Pre
+        document.getElementById('json-output').innerText = JSON.stringify(orderSummary, null, 2);
+        document.getElementById('result').style.display = 'block';
+    }
+</script>
+
+</body>
+</html>
