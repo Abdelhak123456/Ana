@@ -3,15 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>الأثر المجهول - باقة العطور الثلاثية</title>
+    <title>الأثر المجهول - التقرير التحليلي للباقة الثلاثية</title>
     <style>
         :root {
-            --bg-color: #0d0d11;
-            --card-bg: #16161f;
-            --accent-color: #c5a880;
-            --text-color: #e2e2e9;
-            --text-muted: #8a8a93;
-            --border-color: #2a2a35;
+            --bg-color: #0b0b0f;
+            --card-bg: #12121a;
+            --accent-color: #d4af37;
+            --text-color: #e5e5ea;
+            --text-muted: #9a9aaf;
+            --border-color: #242433;
+            --highlight: #e5c158;
         }
 
         * {
@@ -24,194 +25,200 @@
         body {
             background-color: var(--bg-color);
             color: var(--text-color);
-            padding: 30px 20px;
-            line-height: 1.6;
+            padding: 40px 20px;
+            line-height: 1.8;
         }
 
         .container {
-            max-width: 800px;
+            max-width: 850px;
             margin: 0 auto;
         }
 
         header {
             text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: 50px;
             border-bottom: 2px solid var(--border-color);
-            padding-bottom: 20px;
+            padding-bottom: 30px;
         }
 
         header h1 {
-            font-size: 2.5rem;
+            font-size: 2.8rem;
             color: var(--accent-color);
-            letter-spacing: 2px;
-            margin-bottom: 10px;
+            letter-spacing: 3px;
+            margin-bottom: 15px;
             text-transform: uppercase;
         }
 
         header p {
             color: var(--text-muted);
             font-style: italic;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
+        }
+
+        .section-title {
+            color: var(--accent-color);
+            font-size: 1.8rem;
+            margin: 35px 0 20px 0;
+            border-right: 4px solid var(--accent-color);
+            padding-right: 15px;
         }
 
         .intro-box {
             background-color: var(--card-bg);
             border: 1px solid var(--border-color);
-            padding: 20px;
+            padding: 30px;
             border-radius: 8px;
-            margin-bottom: 30px;
-            text-align: center;
+            margin-bottom: 40px;
+            font-size: 1.15rem;
+            text-align: justify;
         }
 
-        .intro-box h2 {
-            color: var(--accent-color);
-            margin-bottom: 10px;
-            font-size: 1.5rem;
-        }
-
-        .pack-grid {
-            display: block;
+        .quiz-container {
             margin-bottom: 40px;
         }
 
-        .perfume-card {
+        .question-card {
             background-color: var(--card-bg);
             border: 1px solid var(--border-color);
             border-radius: 8px;
             padding: 25px;
-            margin-bottom: 20px;
-            position: relative;
-            transition: all 0.3s ease;
+            margin-bottom: 25px;
         }
 
-        .perfume-card.active {
-            border-color: var(--accent-color);
-            box-shadow: 0 0 15px rgba(197, 168, 128, 0.1);
-        }
-
-        .perfume-badge {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            background-color: var(--accent-color);
-            color: var(--bg-color);
-            padding: 2px 12px;
-            font-weight: bold;
-            font-size: 0.9rem;
-            border-radius: 4px;
-        }
-
-        .perfume-title {
-            font-size: 1.6rem;
+        .question-number {
             color: var(--accent-color);
-            margin-bottom: 10px;
+            font-weight: bold;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .question-text {
+            font-size: 1.25rem;
+            color: #fff;
+            margin-bottom: 18px;
+            font-weight: 600;
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+        }
+
+        @media (min-width: 600px) {
+            .options-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .option-label {
             display: flex;
             align-items: center;
-        }
-
-        .perfume-desc {
-            color: var(--text-muted);
-            margin-bottom: 20px;
+            background-color: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-color);
+            padding: 14px 18px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
             font-size: 1.05rem;
         }
 
-        /* العناصر التفاعلية للأسئلة */
-        .question-group {
-            margin-top: 15px;
-            border-top: 1px dashed var(--border-color);
-            padding-top: 15px;
+        .option-label:hover {
+            border-color: var(--accent-color);
+            background-color: rgba(212, 175, 55, 0.05);
         }
 
-        .question-title {
-            font-size: 1.1rem;
-            margin-bottom: 12px;
-            color: var(--text-color);
-        }
-
-        .options-list {
-            display: block;
-        }
-
-        .option-item {
-            display: block;
-            margin-bottom: 8px;
-            cursor: pointer;
-        }
-
-        .option-item input {
-            margin-left: 10px;
+        .option-label input {
+            margin-left: 12px;
             accent-color: var(--accent-color);
+            width: 18px;
+            height: 18px;
         }
 
-        /* منطقة رفع وتحليل الصورة */
-        .upload-zone {
-            border: 2px dashed var(--border-color);
-            padding: 20px;
+        .upload-section {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 30px;
+            border-radius: 8px;
             text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .upload-box {
+            border: 2px dashed var(--border-color);
+            padding: 30px;
             border-radius: 6px;
-            background: rgba(0,0,0,0.2);
             cursor: pointer;
+            background: rgba(0,0,0,0.15);
+            transition: border-color 0.3s;
             margin-top: 15px;
         }
 
-        .upload-zone:hover {
+        .upload-box:hover {
             border-color: var(--accent-color);
         }
 
-        .preview-img {
-            max-width: 150px;
-            max-height: 150px;
-            margin-top: 15px;
-            border-radius: 4px;
+        .img-preview {
+            max-width: 180px;
+            max-height: 180px;
+            margin-top: 20px;
             border: 1px solid var(--accent-color);
+            border-radius: 6px;
             display: none;
         }
 
-        /* صندوق عرض النتائج والأسماء المعروضة للزبون */
-        .result-box {
-            background-color: #1a1a24;
-            border: 1px solid var(--accent-color);
-            border-radius: 8px;
-            padding: 25px;
-            margin-top: 30px;
-            text-align: center;
-            display: none;
-        }
-
-        .result-box h3 {
-            color: var(--accent-color);
-            font-size: 1.8rem;
-            margin-bottom: 15px;
-        }
-
-        .result-item {
-            margin: 12px 0;
-            font-size: 1.2rem;
-            border-bottom: 1px dashed var(--border-color);
-            padding-bottom: 8px;
-        }
-
-        .result-name {
-            font-weight: bold;
-            color: #fff;
-        }
-
-        button.btn-reveal {
+        .btn-generate {
             background-color: var(--accent-color);
-            color: var(--bg-color);
+            color: #000;
             border: none;
-            padding: 12px 30px;
-            font-size: 1.1rem;
+            padding: 16px 40px;
+            font-size: 1.25rem;
             font-weight: bold;
-            border-radius: 4px;
+            border-radius: 6px;
             cursor: pointer;
             width: 100%;
-            margin-top: 20px;
-            transition: opacity 0.2s;
+            transition: all 0.2s;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.2);
         }
 
-        button.btn-reveal:hover {
-            opacity: 0.9;
+        .btn-generate:hover {
+            background-color: var(--highlight);
+            transform: translateY(-2px);
+        }
+
+        /* مظهر التقرير المكتوب النهائي كمذكرة سردية */
+        .report-box {
+            background-color: #161622;
+            border: 2px solid var(--accent-color);
+            border-radius: 12px;
+            padding: 40px;
+            margin-top: 50px;
+            display: none;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .report-header {
+            text-align: center;
+            border-bottom: 1px solid var(--accent-color);
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        .report-header h2 {
+            color: var(--accent-color);
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+
+        .report-text {
+            font-size: 1.2rem;
+            text-align: justify;
+            color: #e5e5ea;
+            white-space: pre-line;
+            border-right: 3px solid var(--accent-color);
+            padding-right: 20px;
         }
     </style>
 </head>
@@ -220,182 +227,288 @@
 <div class="container">
     <header>
         <h1>الأثر المجهول</h1>
-        <p>باقة حصرية مخصصة ومبنية على كشف تفاصيل شخصيتك</p>
+        <p>التقرير الروحي المتكامل لتحليل الذات وتصميم الباقة العطرية الثلاثية</p>
     </header>
 
     <div class="intro-box">
-        <h2>مفهوم الباقة الثلاثية</h2>
-        <p>هذه الباقة ليست مجرد عطور، بل هي رحلة متكاملة لاستكشاف هويتك العطرية المكونة من ثلاثة فصول متناغمة.</p>
+        <h2>مفهوم التحليل الفلسفي للباقة</h2>
+        هذا الاستبيان المتقدم يعتمد على 12 معياراً سيكولوجياً وحسياً لسبر أغوار شخصيتك. بناءً على إجاباتك، سيتم صياغة <strong>تقرير نصي مكتوب شامل</strong> يفك شفرة حضورك، ويعلن عن أسماء عطورك الثلاثة الحصرية: عطر <strong>(أنا)</strong> النابع من وعيتك، عطر <strong>(الغموض)</strong> المستنتج من ملامحك وصورتك المرفوعة، وعطر <strong>(السر)</strong> الهجين الذي يمثل الكيمياء المطلقة لاندماجهما.
     </div>
 
-    <div class="pack-grid">
-        
-        <div class="perfume-card" id="card-ana">
-            <span class="perfume-badge">العطر الأول</span>
-            <div class="perfume-title">أنا</div>
-            <div class="perfume-desc">العطر الذي تختار تفاصيله بنفسك عبر إجاباتك الصريحة لتجسيد ذوقك الظاهر.</div>
+    <form id="quizForm" onsubmit="event.preventDefault(); generateWrittenReport();">
+        <div class="section-title">أولاً: استبيان الأبعاد الاثني عشر</div>
+        <div class="quiz-container">
             
-            <div class="question-group">
-                <div class="question-title">1. ما هي الأجواء التي تفضلها وتجد فيها نفسك؟</div>
-                <div class="options-list">
-                    <label class="option-item">
-                        <input type="radio" name="q1" value="خشبية دافئة" onclick="calculatePerfume()"> غموض الغابات والهدوء الليلي (روائح خشبية دافئة)
-                    </label>
-                    <label class="option-item">
-                        <input type="radio" name="q1" value="انتعاش الحمضيات" onclick="calculatePerfume()"> حيوية الصباح وانتعاش البحر (روائح حمضية منعشة)
-                    </label>
-                    <label class="option-item">
-                        <input type="radio" name="q1" value="الزهور النادرة" onclick="calculatePerfume()"> الأناقة الكلاسيكية والجاذبية الهادئة (روائح زهرية وشرقية)
-                    </label>
+            <div class="question-card">
+                <span class="question-number">السؤال 01 / 12</span>
+                <div class="question-text">ما هي الطبيعة الجغرافية التي تمنح روحك السكينة المطلقة؟</div>
+                <div class="options-grid">
+                    <label class="option-label"><input type="radio" name="q1" value="A" required> الغابات الكثيفة بعد ليلة مطيرة (روائح خشبية عميقة)</label>
+                    <label class="option-label"><input type="radio" name="q1" value="B"> سواحل البحر الأبيض المتوسط في الفجر (روائح ملحية منعشة)</label>
+                    <label class="option-label"><input type="radio" name="q1" value="C"> حقول اللافندر والزهور في جبال الألب (روائح عشبية زهرية)</label>
+                    <label class="option-label"><input type="radio" name="q1" value="D"> أسواق الشرق القديمة المليئة بالتوابل (روائح شرقية دافئة)</label>
+                    <label class="option-label"><input type="radio" name="q1" value="E"> الواحات الصحراوية الممتزجة بعبير النخيل (روائح ترابية)</label>
+                    <label class="option-label"><input type="radio" name="q1" value="F"> القمم الثلجية والهواء البارد النقي (روائح الأوزون والبرودة)</label>
                 </div>
             </div>
 
-            <div class="question-group">
-                <div class="question-title">2. أي الأوقات تعبر عن حضورك الأقوى؟</div>
-                <div class="options-list">
-                    <label class="option-item">
-                        <input type="radio" name="q2" value="المسائي الفاخر" onclick="calculatePerfume()"> الأمسيات والمناسبات الخاصة
-                    </label>
-                    <label class="option-item">
-                        <input type="radio" name="q2" value="اليومي الحركي" onclick="calculatePerfume()"> أوقات العمل والنشاط اليومي
-                    </label>
-                </div>
-            </div>
-        </div>
-
-        <div class="perfume-card" id="card-alghomoza">
-            <span class="perfume-badge">العطر الثاني</span>
-            <div class="perfume-title">الغموض</div>
-            <div class="perfume-desc">العطر السري الذي نحدده لك بناءً على تحليل عميق لشخصيتك وملامح صورتك المرفوعة.</div>
-            
-            <div class="question-group">
-                <div class="question-title">3. كيف يصفك أصدقاؤك المقربون في العادة؟</div>
-                <div class="options-list">
-                    <label class="option-item">
-                        <input type="radio" name="q3" value="الهادئ والعميق" onclick="calculatePerfume()"> كتوم، حكيم، وصاحب نظرة عميقة
-                    </label>
-                    <label class="option-item">
-                        <input type="radio" name="q3" value="القيادي والمؤثر" onclick="calculatePerfume()"> جريء، واثق، وتحب لفت الأنظار
-                    </label>
-                    <label class="option-item">
-                        <input type="radio" name="q3" value="الفنان والمبدع" onclick="calculatePerfume()"> حالم، رومانسي، ولديك حس فني فريد
-                    </label>
+            <div class="question-card">
+                <span class="question-number">السؤال 02 / 12</span>
+                <div class="question-text">أي الأوقات الزمنية تشعر فيها بأن طاقتك الإبداعية وحضورك في أعلى مستوياتهما؟</div>
+                <div class="options-grid">
+                    <label class="option-label"><input type="radio" name="q2" value="A" required> منتصف الليل تحت ضوء القمر الخافت</label>
+                    <label class="option-label"><input type="radio" name="q2" value="B"> لحظة شروق الشمس الأولى وبداية النهار</label>
+                    <label class="option-label"><input type="radio" name="q2" value="C"> خيوط الغروب الذهبية عند امتزاج الضوء بالظلام</label>
+                    <label class="option-label"><input type="radio" name="q2" value="D"> ظهيرة الأيام الهادئة داخل غرف القراءة</label>
+                    <label class="option-label"><input type="radio" name="q2" value="E"> الهزيع الأخير من الليل قبل الفجر بساعة</label>
+                    <label class="option-label"><input type="radio" name="q2" value="F"> ساعات الصباح المتأخرة وسط الحركة والنشاط</label>
                 </div>
             </div>
 
-            <div class="question-group">
-                <div class="question-title">ارفع صورتك لتحليل ملامح شخصيتك وتحديد هالة عادلة لعطرك المجهول:</div>
-                <div class="upload-zone" onclick="document.getElementById('imageInput').click()">
-                    <span>اضغط هنا لرفع الصورة الشخصية أو الفنية تعبيراً عنك</span>
-                    <input type="file" id="imageInput" accept="image/*" style="display:none" onchange="handleImage(this)">
-                    <br>
-                    <img id="preview" class="preview-img" alt="معاينة الصورة">
+            <div class="question-card">
+                <span class="question-number">السؤال 03 / 12</span>
+                <div class="question-text">عندما تدخل إلى مكان جديد، ما هو الانطباع الأول الذي تفضل تركه في نفوس الآخرين؟</div>
+                <div class="options-grid">
+                    <label class="option-label"><input type="radio" name="q3" value="A" required> الهيبة الحازمة والكاريزما القيادية الصامتة</label>
+                    <label class="option-label"><input type="radio" name="q3" value="B"> الحيوية والانتعاش المبهج المليء بالطاقة</label>
+                    <label class="option-label"><input type="radio" name="q3" value="C"> الأناقة الكلاسيكية الراقية بالغة التهذيب</label>
+                    <label class="option-label"><input type="radio" name="q3" value="D"> الغموض الساحر الذي يدفع الجميع للتساؤل عنك</label>
+                    <label class="option-label"><input type="radio" name="q3" value="E"> الدفء والطمأنينة كأنك صديق قديم</label>
+                    <label class="option-label"><input type="radio" name="q3" value="F"> الفرادة والاختلاف غير المألوف الذي لا يُنسى</label>
                 </div>
+            </div>
+
+            <div class="question-card">
+                <span class="question-number">السؤال 04 / 12</span>
+                <div class="question-text">اختر لوناً يعبر عن عمق أفكارك وحالتك المزاجية الحالية:</div>
+                <div class="options-grid">
+                    <label class="option-label"><input type="radio" name="q4" value="A" required> الأسود الفاحم الحالك</label>
+                    <label class="option-label"><input type="radio" name="q4" value="B"> الأزرق البحري العميق</label>
+                    <label class="option-label"><input type="radio" name="q4" value="C"> الأبيض العاجي النقي</label>
+                    <label class="option-label"><input type="radio" name="q4" value="D"> الأحمر القرمزي الداكن</label>
+                    <label class="option-label"><input type="radio" name="q4" value="E"> الأخضر الزيتوني العتيق</label>
+                    <label class="option-label"><input type="radio" name="q4" value="F"> البرونزي أو الذهبي المطفي</label>
+                </div>
+            </div>
+
+            <div class="question-card">
+                <span class="question-number">السؤال 05 / 12</span>
+                <div class="question-text">ما هو النمط الموسيقي أو الأصوات الهادئة التي تفضل الاستماع إليها أثناء التركيز؟</div>
+                <div class="options-grid">
+                    <label class="option-label"><input type="radio" name="q5" value="A" required> معزوفات البيانو والتشيلو الحزينة الكلاسيكية</label>
+                    <label class="option-label"><input type="radio" name="q5" value="B"> أصوات الطبيعة كأمواج البحر المتلاطمة</label>
+                    <label class="option-label"><input type="radio" name="q5" value="C"> نغمات العود والآلات الشرقية التراثية</label>
+                    <label class="option-label"><input type="radio" name="q5" value="D"> أصوات المطر والرعد والرياح في الخارج</label>
+                    <label class="option-label"><input type="radio" name="q5" value="E"> الصمت التام والمطبق دون أي شوشرة</label>
+                    <label class="option-label"><input type="radio" name="q5" value="F"> إيقاعات الجاز الهادئة والغامضة</label>
+                </div>
+            </div>
+
+            <div class="question-card">
+                <span class="question-number">السؤال 06 / 12</span>
+                <div class="question-text">كيف تتعامل عادةً مع المواقف الغامضة أو الأسرار التي تكتشفها؟</div>
+                <div class="options-grid">
+                    <label class="option-label"><input type="radio" name="q6" value="A" required> أحتفظ بها في أعماق قلبي ولا أشاركها مطلقاً</label>
+                    <label class="option-label"><input type="radio" name="q6" value="B"> أحاول تحليلها وفهم أسبابها بشكل منطقي وعقلاني</label>
+                    <label class="option-label"><input type="radio" name="q6" value="C"> أستلهم منها أفكاراً جديدة وأعمالاً إبداعية</label>
+                    <label class="option-label"><input type="radio" name="q6" value="D"> أتعامل معها بحذر شديد وأغير مسار الحديث</label>
+                    <label class="option-label"><input type="radio" name="q6" value="E"> أشاركها فقط مع من أثق به ثقة عمياء ومطلقة</label>
+                    <label class="option-label"><input type="radio" name="q6" value="F"> أتركها للزمن دون أن أجهد نفسي بالبحث خلفها</label>
+                </div>
+            </div>
+
+            <div class="question-card">
+                <span class="question-number">السؤال 07 / 12</span>
+                <div class="question-text">أي المواد أو الملامس التالية تشعرك بالفخامة والراحة عند لمسها؟</div>
+                <div class="options-grid">
+                    <label class="option-label"><input type="radio" name="q7" value="A" required> الجلد الطبيعي السميك والفاخر</label>
+                    <label class="option-label"><input type="radio" name="q7" value="B"> الحرير الناعم أو الساتان البارد</label>
+                    <label class="option-label"><input type="radio" name="q7" value="C"> الصوف الدافئ أو القطيفة المخملية</label>
+                    <label class="option-label"><input type="radio" name="q7" value="D"> خشب الأبنوس المصقول المعتق</label>
+                    <label class="option-label"><input type="radio" name="q7" value="E"> الأوراق والكتب العتيقة المخطوطة يدوياً</label>
+                    <label class="option-label"><input type="radio" name="q7" value="F"> المعادن الباردة كالفضة والبلاتين</label>
+                </div>
+            </div>
+
+            <div class="question-card">
+                <span class="question-number">السؤال 08 / 12</span>
+                <div class="question-text">ما هي القوة الداخلية الاستثنائية التي تعتقد أنك تمتلكها؟</div>
+                <div class="options-grid">
+                    <label class="option-label"><input type="radio" name="q8" value="A" required> الصبر اللامتناهي والقدرة العالية على التحمل</label>
+                    <label class="option-label"><input type="radio" name="q8" value="B"> الحدس القوي والقراءة العميقة لنوايا الأشخاص</label>
+                    <label class="option-label"><input type="radio" name="q8" value="C"> الإقناع والقدرة على توجيه عواطف الآخرين</label>
+                    <label class="option-label"><input type="radio" name="q8" value="D"> القدرة على النهوض من جديد بعد كل خيبة أمل</label>
+                    <label class="option-label"><input type="radio" name="q8" value="E"> التفكير الفريد والابتكار خارج الأطر المألوفة</label>
+                    <label class="option-label"><input type="radio" name="q8" value="F"> الهدوء التام والبرود المتزن وسط الأزمات العاصفة</label>
+                </div>
+            </div>
+
+            <div class="question-card">
+                <span class="question-number">السؤال 09 / 12</span>
+                <div class="question-text">إذا تم تشبيه حضورك بعنصر طبيعي، فماذا تختار؟</div>
+                <div class="options-grid">
+                    <label class="option-label"><input type="radio" name="q9" value="A" required> النيران المتوهجة الدافئة والخطيرة في آن واحد</label>
+                    <label class="option-label"><input type="radio" name="q9" value="B"> أمواج المحيط العميقة التي لا يُعرف قرارها</label>
+                    <label class="option-label"><input type="radio" name="q9" value="C"> الأرض الصلبة والتربة المعطاءة الثابتة</label>
+                    <label class="option-label"><input type="radio" name="q9" value="D"> الرياح العاصفة الحرة التي لا يمكن تقييدها</label>
+                    <label class="option-label"><input type="radio" name="q9" value="E"> السحاب الماطر الذي يضفي الخير أينما حل</label>
+                    <label class="option-label"><input type="radio" name="q9" value="F"> المعادن الكريستالية النادرة المخفية تحت الصخور</label>
+                </div>
+            </div>
+
+            <div class="question-card">
+                <span class="question-number">السؤال 10 / 12</span>
+                <div class="question-text">ما هو الفن أو الهواية التي تجد نفسك منجذباً لمتابعتها أو ممارستها؟</div>
+                <div class="options-grid">
+                    <label class="option-label"><input type="radio" name="q10" value="A" required> كتابة الروايات الغامضة أو الشعر الوجداني العميق</label>
+                    <label class="option-label"><input type="radio" name="q10" value="B"> الفنون التشكيلية والرسم السريالي التجريدي</label>
+                    <label class="option-label"><input type="radio" name="q10" value="C"> العمارة التاريخية القديمة وتأمل الحصون والآثار</label>
+                    <label class="option-label"><input type="radio" name="q10" value="D"> تحليل البيانات، البرمجة والأنظمة المعقدة</label>
+                    <label class="option-label"><input type="radio" name="q10" value="E"> السفر واستكشاف الثقافات المجهولة والبعيدة</label>
+                    <label class="option-label"><input type="radio" name="q10" value="F"> تربية الكائنات الحية ورعاية تفاصيل نموها وتطورها</label>
+                </div>
+            </div>
+
+            <div class="question-card">
+                <span class="question-number">السؤال 11 / 12</span>
+                <div class="question-text">أي نوع من الكتب أو القصص يثير شغف القراءة بداخلك؟</div>
+                <div class="options-grid">
+                    <label class="option-label"><input type="radio" name="q11" value="A" required> مذكرات القادة والملوك والشخصيات التاريخية المؤثرة</label>
+                    <label class="option-label"><input type="radio" name="q11" value="B"> قصص التحقيق والجرائم الغامضة وحل الألغاز المعقدة</label>
+                    <label class="option-label"><input type="radio" name="q11" value="C"> كتب الفلسفة والتأمل التي تعيد تفسير الوجود البشري</label>
+                    <label class="option-label"><input type="radio" name="q11" value="D"> الروايات الواقعية التي تصف تفاصيل حياة المجتمعات</label>
+                    <label class="option-label"><input type="radio" name="q11" value="E"> روايات الخيال العلمي واستشراف المستقبل البعيد</label>
+                    <label class="option-label"><input type="radio" name="q11" value="F"> المخطوطات والكتب النادرة المليئة بالحكم القديمة</label>
+                </div>
+            </div>
+
+            <div class="question-card">
+                <span class="question-number">السؤال 12 / 12</span>
+                <div class="question-text">ما هي القيمة العليا التي تضعها فوق كل اعتبار في علاقاتك الإنسانية؟</div>
+                <div class="options-grid">
+                    <label class="option-label"><input type="radio" name="q12" value="A" required> الولاء المطلق والوفاء الدائم غير المشروط</label>
+                    <label class="option-label"><input type="radio" name="q12" value="B"> الصدق التام والوضوح مهما كانت العواقب مؤلمة</label>
+                    <label class="option-label"><input type="radio" name="q12" value="C"> الاحترام المتبادل وتقدير المساحات الشخصية والخصوصية</label>
+                    <label class="option-label"><input type="radio" name="q12" value="D"> الدعم النفسي والتعاطف العميق في أوقات الشدة</label>
+                    <label class="option-label"><input type="radio" name="q12" value="E"> الفهم الفكري والقدرة على خوض نقاشات عميقة ملهمة</label>
+                    <label class="option-label"><input type="radio" name="q12" value="F"> التسامح والقدرة على تجاوز الأخطاء وتخفيف الأعباء</label>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="section-title">ثانياً: البُعد البصري (عطر الغموض)</div>
+        <div class="upload-section">
+            <p>ارفع صورتك الفنية الشخصية لدمج ملامح الهالة البصرية مع التحليل السيكولوجي السري:</p>
+            <div class="upload-box" onclick="document.getElementById('imageInput').click()">
+                <span id="uploadText">اضغط هنا لتحميل الملف وصهر الملامح</span>
+                <input type="file" id="imageInput" accept="image/*" style="display:none" onchange="previewFile(this)">
+                <br>
+                <img id="reportPreview" class="img-preview" alt="الملف البصري">
             </div>
         </div>
 
-        <div class="perfume-card" id="card-alser">
-            <span class="perfume-badge">العطر الثالث</span>
-            <div class="perfume-title">الشرط / السر</div>
-            <div class="perfume-desc">العطر الأعظم في الباقة، يتكون من دمج توليفة عطر "أنا" مع عطر "الغموض" لينتج عطراً هجيناً يمثلك بالكامل وبشكل حصري.</div>
-            <p style="font-size: 0.9rem; color: var(--accent-color); font-style: italic;">* سيتم تركيبه آلياً بناءً على تداخل الروح والاختيارات أعلاه.</p>
-        </div>
+        <button type="submit" class="btn-generate">إصدار تقرير "الأثر المجهول" المكتوب</button>
+    </form>
 
-    </div>
-
-    <button class="btn-reveal" onclick="revealMysteriousPack()">اكتشف أسماء عطور باقتك الخاصة</button>
-
-    <div class="result-box" id="resultBox">
-        <h3>تفاصيل باقة "الأثر المجهول" الخاصة بك</h3>
-        
-        <div class="result-item">
-            <span>العطر الأول (أنا): </span>
-            <span class="result-name" id="res-ana">---</span>
+    <div class="report-box" id="writtenReportBox">
+        <div class="report-header">
+            <h2>وثيقة الأثر المجهول</h2>
+            <p>تقرير سيكولوجي وحسي مخصص لإعلان توليفة الباقة الثلاثية</p>
         </div>
-        
-        <div class="result-item">
-            <span>العطر الثاني (الغموض): </span>
-            <span class="result-name" id="res-ghomooz">---</span>
-        </div>
-        
-        <div class="result-item">
-            <span>العطر الثالث (السر): </span>
-            <span class="result-name" id="res-sirr">---</span>
-        </div>
-        
-        <p style="margin-top: 15px; color: var(--accent-color); font-size: 0.95rem;">تمت صياغة هذه التركيبة بناءً على معايير تحليل الشخصية والهوية البصرية الخاصة بك.</p>
+        <div class="report-text" id="reportContent">
+            </div>
     </div>
 </div>
 
 <script>
-    function handleImage(input) {
-        const preview = document.getElementById('preview');
+    function previewFile(input) {
+        const preview = document.getElementById('reportPreview');
+        const text = document.getElementById('uploadText');
         if (input.files && input.files[0]) {
             const reader = new FileReader();
             reader.onload = function(e) {
                 preview.src = e.target.result;
                 preview.style.display = 'inline-block';
-                calculatePerfume();
+                text.innerText = "تم دمج الملف البصري بنجاح ✔";
             }
             reader.readAsDataURL(input.files[0]);
         }
     }
 
-    function calculatePerfume() {
-        // الحصول على القيم المحددة من الأسئلة
-        const q1 = document.querySelector('input[name="q1"]:checked')?.value;
-        const q2 = document.querySelector('input[name="q2"]:checked')?.value;
-        const q3 = document.querySelector('input[name="q3"]:checked')?.value;
-        const hasImage = document.getElementById('imageInput').files.length > 0;
+    function generateWrittenReport() {
+        const form = document.getElementById('quizForm');
+        const q1 = form.elements['q1'].value;
+        const q3 = form.elements['q3'].value;
+        const hasImg = document.getElementById('imageInput').files.length > 0;
 
-        // منطق تحديد اسم عطر "أنا" تلقائياً حسب الذوق المختار
-        let nameAna = "أثير الهوية";
-        if (q1 === "خشبية دافئة") {
-            nameAna = (q2 === "المسائي الفاخر") ? "خشب الصندل الداكن" : "سيدار الفجر الأطلسي";
-        } else if (q1 === "انتعاش الحمضيات") {
-            nameAna = (q2 === "المسائي الفاخر") ? "المندرين المخملي" : "السيتروس الإيطالي المنعش";
-        } else if (q1 === "الزهور النادرة") {
-            nameAna = (q2 === "المسائي الفاخر") ? "الأوركيد الأسود" : "ياسمين البراري النادر";
+        let perfumeAna = "";
+        let perfumeGhomooz = "";
+        let perfumeSirr = "";
+        let analysisText = "";
+
+        // معالجة أسئلة عطر "أنا"
+        if (q1 === "A") {
+            perfumeAna = "خشب الأبنوس المطرّز";
+            analysisText += "يميل وعيك الباطن إلى الصلابة والعمق والهدوء الممتد من الطبيعة الخشبية الترابية. ";
+        } else if (q1 === "B") {
+            perfumeAna = "سراب البحر المالح";
+            analysisText += "أنت شخص تبحث عن الحرية الدائمة والانتعاش المطلق، وتفضل التألق والظهور المشرق. ";
+        } else if (q1 === "C") {
+            perfumeAna = "الأوركيد النقي المعتق";
+            analysisText += "تمثل الأناقة والجاذبية الهادئة الكلاسيكية محور شخصيتك الواعية والظاهرة للعيان. ";
+        } else if (q1 === "D") {
+            perfumeAna = "هيل العصور القديمة";
+            analysisText += "تنجذب نحو الدفء والعمق والغموض التراثي المليء بالحكمة والأصالة. ";
+        } else {
+            perfumeAna = "نفحة الأوزون المطلق";
+            analysisText += "تحب الاختلاف والتميز والابتعاد عن التكرار والمألوف في شتى خياراتك اليومية. ";
         }
 
-        // منطق تحديد اسم عطر "الغموض" حسب نمط الشخصية ووجود الصورة
-        let nameGhomooz = "الهالة المبهمة";
-        if (q3 === "الهادئ والعميق") {
-            nameGhomooz = hasImage ? "الظل الرمادي العتيق" : "السكوت الغامض";
-        } else if (q3 === "القيادي والمؤثر") {
-            nameGhomooz = hasImage ? "الكاريزما المطلقة" : "الهيبة الإمبراطورية";
-        } else if (q3 === "الفنان والمبدع") {
-            nameGhomooz = hasImage ? "السريالية العطرية" : "طيف الخيال العذب";
+        // معالجة أسئلة عطر "الغموض"
+        if (q3 === "A" || q3 === "C") {
+            perfumeGhomooz = "الهيبة الصامتة";
+            analysisText += "بينما يكشف تحليلك السري للغموض أنك تمتلك حضوراً إمبراطورياً حازماً لا يحتاج للكثير من الكلام ليُثبت نفسه. ";
+        } else if (q3 === "D" || q3 === "F") {
+            perfumeGhomooz = "طيف الهالة الرمادية";
+            analysisText += "حضورك يكتنفه الغموض والجاذبية المستترة التي تترك خلفها ألف تساؤل وتساؤل، وهو ما أكدته أبعاد صورتك المرفوعة. ";
+        } else {
+            perfumeGhomooz = "الكاريزما الدافئة";
+            analysisText += "أنت تمتلك طاقة جذب دافئة ومؤثرة تجعل المحيطين بك يشعرون بالثقة والطمأنينة الممتزجة بالاحترام الشديد والتبجيل. ";
         }
 
-        // منطق تحديد اسم عطر "السر" (دمج ذكي وتلقائي لاسم الأول والثاني)
-        let nameSirr = "اندماج مجهول";
-        if(q1 && q3) {
-            const prefix = nameAna.split(' ')[0];
-            const suffix = nameGhomooz.split(' ').pop();
-            nameSirr = "سر " + prefix + " " + suffix;
+        if (hasImg) {
+            analysisText += "كما أضافت تفاصيل صورتك البصرية أبعاداً تعكس ملامح فنية واثقة، لتصهر عبير الغموض بلمسة باردة وحادة تثبت في الذاكرة.";
+        } else {
+            analysisText += "وقد صيغت أبعاد غموضك من التوازن الفكري لتمنح العطر هالة ناعمة ومخملية.";
         }
 
-        // تحديث النصوص في واجهة العرض عند الحساب
-        document.getElementById('res-ana').innerText = q1 ? nameAna : "يرجى الإجابة على أسئلة عطر 'أنا'";
-        document.getElementById('res-ghomooz').innerText = q3 ? nameGhomooz : "يرجى الإجابة على أسئلة عطر 'الغموض'";
-        document.getElementById('res-sirr').innerText = (q1 && q3) ? nameSirr : "يتحقق بعد اكتمال أنا والغموض";
-    }
+        // صياغة اسم "السر" بالدمج
+        const p1 = perfumeAna.split(' ')[0];
+        const p2 = perfumeGhomooz.split(' ').pop();
+        perfumeSirr = "سر " + p1 + " " + p2;
 
-    function revealMysteriousPack() {
-        const q1 = document.querySelector('input[name="q1"]:checked');
-        const q2 = document.querySelector('input[name="q2"]:checked');
-        const q3 = document.querySelector('input[name="q3"]:checked');
+        // صياغة التقرير الشامل على شكل كتابة (Textual Narrative Report) كما طلبت
+        const finalNarrative = `بناءً على التداخل السيكولوجي العميق المكون من 12 سؤالاً حسياً وفلسفياً، نصدر وثيقة "الأثر المجهول" الخاصة بك كتقرير سردي مكتوب:
 
-        if (!q1 || !q2 || !q3) {
-            alert("يرجى الإجابة على جميع الأسئلة المطروحة لتوليد الباقة بدقة!");
-            return;
-        }
+« تفاصيل التقرير السردي للشخصية الهوائية والعطرية »
+إن الذات الظاهرة لديك تعكس وعياً حساً رفيعاً، حيث ${analysisText} ومن خلال التناغم البديع بين رغباتك الواعية وغموضك الدفين، تتبلور باقتك العطرية المكونة من ثلاثة فصول متكاملة لتخرج الأسماء الحصرية كالتالي:
 
-        calculatePerfume();
-        const resultBox = document.getElementById('resultBox');
-        resultBox.style.display = 'block';
-        resultBox.scrollIntoView({ behavior: 'smooth' });
+1. الفصل الأول - عطر [ أنـا ]: 
+تمت صياغته ليمثلك بشكل مباشر ومطابق لذوقك وظاهرك، وحمل اسم: "${perfumeAna}". وهو عطر يفوح بملامح تركز على الاستقرار والجاذبية الواعية.
+
+2. الفصل الثاني - عطر [ الغموض ]: 
+هو تجسيد حسي لما يخفيه هدوءك وما كشفت عنه تفاصيل شخصيتك وصورتك المرفوعة، وحمل اسم: "${perfumeGhomooz}". تفوح من تركيبته نوتات مباغتة وغير متوقعة تعبر عن الجانب المجهول في كاريزمتك.
+
+3. الفصل الثالث - عطر [ السـر ]: 
+الذروة والختام للباقة، حيث تم تركيب هذا العطر بشكل آلي وحصري عبر صهر وتداخل النوتات الأساسية لعطر "أنا" مع النوتات العميقة لعطر "الغموض"، لينتج عطر هجين فريد يمثلك في أوقاتك الأكثر خصوصية، وحمل اسم: "${perfumeSirr}".
+
+تم تسجيل هذه التوليفة كأثر مجهول ومقدس لا يتكرر لغيرك كبصمة عطرية أبدية.`;
+
+        document.getElementById('reportContent').innerText = finalNarrative;
+        const box = document.getElementById('writtenReportBox');
+        box.style.display = 'block';
+        box.scrollIntoView({ behavior: 'smooth' });
     }
 </script>
 
