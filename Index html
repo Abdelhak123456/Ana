@@ -3,217 +3,399 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>V8 LUXURY - مستشار العطور الذكي</title>
+    <title>الأثر المجهول - باقة العطور الثلاثية</title>
     <style>
         :root {
-            --primary: #1b4332; /* الأخضر الخشبي الفخم */
-            --secondary: #d4af37; /* الذهبي الكلاسيكي */
-            --dark: #111111;
-            --light: #f8f9fa;
+            --bg-color: #0d0d11;
+            --card-bg: #16161f;
+            --accent-color: #c5a880;
+            --text-color: #e2e2e9;
+            --text-muted: #8a8a93;
+            --border-color: #2a2a35;
         }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--dark);
-            color: var(--light);
+
+        * {
+            box-sizing: border-box;
             margin: 0;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
-        .quiz-container {
-            background-color: #1a1a1a;
-            border: 2px solid var(--primary);
-            border-radius: 15px;
-            padding: 30px;
-            max-width: 600px;
-            width: 100%;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-        }
-        h1, h2 {
-            text-align: center;
-            color: var(--secondary);
-            margin-bottom: 25px;
-        }
-        .question-card {
-            display: none;
-        }
-        .question-card.active {
-            display: block;
-            animation: fadeIn 0.5s ease;
-        }
-        .options-list {
-            list-style: none;
             padding: 0;
+            font-family: 'Times New Roman', serif;
         }
-        .option-btn {
-            background-color: #262626;
-            border: 1px solid #404040;
-            color: var(--light);
-            padding: 15px;
-            margin-bottom: 12px;
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            padding: 30px 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 20px;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            color: var(--accent-color);
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        header p {
+            color: var(--text-muted);
+            font-style: italic;
+            font-size: 1.1rem;
+        }
+
+        .intro-box {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 20px;
             border-radius: 8px;
-            cursor: pointer;
-            width: 100%;
-            text-align: right;
-            font-size: 16px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .intro-box h2 {
+            color: var(--accent-color);
+            margin-bottom: 10px;
+            font-size: 1.5rem;
+        }
+
+        .pack-grid {
+            display: block;
+            margin-bottom: 40px;
+        }
+
+        .perfume-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 20px;
+            position: relative;
             transition: all 0.3s ease;
         }
-        .option-btn:hover {
-            border-color: var(--secondary);
-            background-color: var(--primary);
-            transform: translateX(-5px);
+
+        .perfume-card.active {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 15px rgba(197, 168, 128, 0.1);
         }
-        .result-box {
-            display: none;
-            border-top: 2px dashed var(--secondary);
-            padding-top: 20px;
-            margin-top: 20px;
-        }
-        .badge {
-            display: inline-block;
-            background-color: var(--primary);
-            color: var(--secondary);
-            padding: 5px 15px;
-            border-radius: 20px;
+
+        .perfume-badge {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: var(--accent-color);
+            color: var(--bg-color);
+            padding: 2px 12px;
             font-weight: bold;
+            font-size: 0.9rem;
+            border-radius: 4px;
+        }
+
+        .perfume-title {
+            font-size: 1.6rem;
+            color: var(--accent-color);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .perfume-desc {
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            font-size: 1.05rem;
+        }
+
+        /* العناصر التفاعلية للأسئلة */
+        .question-group {
+            margin-top: 15px;
+            border-top: 1px dashed var(--border-color);
+            padding-top: 15px;
+        }
+
+        .question-title {
+            font-size: 1.1rem;
+            margin-bottom: 12px;
+            color: var(--text-color);
+        }
+
+        .options-list {
+            display: block;
+        }
+
+        .option-item {
+            display: block;
+            margin-bottom: 8px;
+            cursor: pointer;
+        }
+
+        .option-item input {
+            margin-left: 10px;
+            accent-color: var(--accent-color);
+        }
+
+        /* منطقة رفع وتحليل الصورة */
+        .upload-zone {
+            border: 2px dashed var(--border-color);
+            padding: 20px;
+            text-align: center;
+            border-radius: 6px;
+            background: rgba(0,0,0,0.2);
+            cursor: pointer;
+            margin-top: 15px;
+        }
+
+        .upload-zone:hover {
+            border-color: var(--accent-color);
+        }
+
+        .preview-img {
+            max-width: 150px;
+            max-height: 150px;
+            margin-top: 15px;
+            border-radius: 4px;
+            border: 1px solid var(--accent-color);
+            display: none;
+        }
+
+        /* صندوق عرض النتائج والأسماء المعروضة للزبون */
+        .result-box {
+            background-color: #1a1a24;
+            border: 1px solid var(--accent-color);
+            border-radius: 8px;
+            padding: 25px;
+            margin-top: 30px;
+            text-align: center;
+            display: none;
+        }
+
+        .result-box h3 {
+            color: var(--accent-color);
+            font-size: 1.8rem;
             margin-bottom: 15px;
         }
-        pre {
-            background-color: #000;
-            padding: 15px;
-            border-radius: 5px;
-            color: #00ff00;
-            direction: ltr;
-            overflow-x: auto;
+
+        .result-item {
+            margin: 12px 0;
+            font-size: 1.2rem;
+            border-bottom: 1px dashed var(--border-color);
+            padding-bottom: 8px;
         }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+
+        .result-name {
+            font-weight: bold;
+            color: #fff;
+        }
+
+        button.btn-reveal {
+            background-color: var(--accent-color);
+            color: var(--bg-color);
+            border: none;
+            padding: 12px 30px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 20px;
+            transition: opacity 0.2s;
+        }
+
+        button.btn-reveal:hover {
+            opacity: 0.9;
         }
     </style>
 </head>
 <body>
 
-<div class="quiz-container">
-    <h1>V8 LUXURY ⚜️</h1>
-    <p style="text-align: center; color: #aaa;">أجب عن الأسئلة لنحلل شخصيتك ونصمم عطر "الغامض" و "السر" الخاص بك</p>
-    
-    <div class="question-card active" id="q1">
-        <h2>1. ما هو اللباس المفضل لديك في المناسبات؟</h2>
-        <div class="options-list">
-            <button class="option-btn" onclick="nextQuestion('q1', 'q2', 'classic', 3)">بدلة كلاسيكية أو لباس تقليدي فخم</button>
-            <button class="option-btn" onclick="nextQuestion('q1', 'q2', 'modern', 3)">لباس عصري، سبور كلاسيكي ومواكب للموضة</button>
-            <button class="option-btn" onclick="nextQuestion('q1', 'q2', 'sporty', 3)">ملابس رياضية مريحة وحيوية</button>
-        </div>
+<div class="container">
+    <header>
+        <h1>الأثر المجهول</h1>
+        <p>باقة حصرية مخصصة ومبنية على كشف تفاصيل شخصيتك</p>
+    </header>
+
+    <div class="intro-box">
+        <h2>مفهوم الباقة الثلاثية</h2>
+        <p>هذه الباقة ليست مجرد عطور، بل هي رحلة متكاملة لاستكشاف هويتك العطرية المكونة من ثلاثة فصول متناغمة.</p>
     </div>
 
-    <div class="question-card" id="q2">
-        <h2>2. ما هو الأثر أو الانطباع الذي تحب أن تتركه خلفك؟</h2>
-        <div class="options-list">
-            <button class="option-btn" onclick="nextQuestion('q2', 'q3', 'classic', 4)">فرض الهيبة والوقار (حضور ثقيل)</button>
-            <button class="option-btn" onclick="nextQuestion('q2', 'q3', 'modern', 4)">الجاذبية، الغموض والتميز اللامع</button>
-            <button class="option-btn" onclick="nextQuestion('q2', 'q3', 'sporty', 4)">الانتعاش، الحيوية والنقاء</button>
-        </div>
-    </div>
-
-    <div class="question-card" id="q3">
-        <h2>3. إذا خُيّرت بين هذه الروائح، ماذا تختار غريزياً؟</h2>
-        <div class="options-list">
-            <button class="option-btn" onclick="endQuiz('q3', 'classic', 3)">رائحة الجلود، القهوة السوداء والأخشاب الدافئة</button>
-            <button class="option-btn" onclick="endQuiz('q3', 'modern', 3)">رائحة التوابل الدافئة، العنبر والزهور النادرة</button>
-            <button class="option-btn" onclick="endQuiz('q3', 'sporty', 3)">رائحة البحر المالح، الحمضيات والانتعاش الجبلي</button>
-        </div>
-    </div>
-
-    <div class="result-box" id="result">
-        <h2>تحليل شخصيتك العطرية جاهز!</h2>
-        <div style="text-align: center;">
-            <span class="badge" id="character-type">جاري التحليل...</span>
-        </div>
-        <p id="analysis-text" style="line-height: 1.6; text-align: justify;"></p>
+    <div class="pack-grid">
         
-        <hr style="border-color: #333; margin: 20px 0;">
-        <h3 style="color: var(--secondary);">📋 خلاصة الطلب (الكود البرمجي لسيستم المتجر):</h3>
-        <p style="font-size: 14px; color: #888;">انسخ هذا الكود وأرسله لنا لإتمام عملية التجهيز الفوري:</p>
-        <pre id="json-output"></pre>
+        <div class="perfume-card" id="card-ana">
+            <span class="perfume-badge">العطر الأول</span>
+            <div class="perfume-title">أنا</div>
+            <div class="perfume-desc">العطر الذي تختار تفاصيله بنفسك عبر إجاباتك الصريحة لتجسيد ذوقك الظاهر.</div>
+            
+            <div class="question-group">
+                <div class="question-title">1. ما هي الأجواء التي تفضلها وتجد فيها نفسك؟</div>
+                <div class="options-list">
+                    <label class="option-item">
+                        <input type="radio" name="q1" value="خشبية دافئة" onclick="calculatePerfume()"> غموض الغابات والهدوء الليلي (روائح خشبية دافئة)
+                    </label>
+                    <label class="option-item">
+                        <input type="radio" name="q1" value="انتعاش الحمضيات" onclick="calculatePerfume()"> حيوية الصباح وانتعاش البحر (روائح حمضية منعشة)
+                    </label>
+                    <label class="option-item">
+                        <input type="radio" name="q1" value="الزهور النادرة" onclick="calculatePerfume()"> الأناقة الكلاسيكية والجاذبية الهادئة (روائح زهرية وشرقية)
+                    </label>
+                </div>
+            </div>
+
+            <div class="question-group">
+                <div class="question-title">2. أي الأوقات تعبر عن حضورك الأقوى؟</div>
+                <div class="options-list">
+                    <label class="option-item">
+                        <input type="radio" name="q2" value="المسائي الفاخر" onclick="calculatePerfume()"> الأمسيات والمناسبات الخاصة
+                    </label>
+                    <label class="option-item">
+                        <input type="radio" name="q2" value="اليومي الحركي" onclick="calculatePerfume()"> أوقات العمل والنشاط اليومي
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="perfume-card" id="card-alghomoza">
+            <span class="perfume-badge">العطر الثاني</span>
+            <div class="perfume-title">الغموض</div>
+            <div class="perfume-desc">العطر السري الذي نحدده لك بناءً على تحليل عميق لشخصيتك وملامح صورتك المرفوعة.</div>
+            
+            <div class="question-group">
+                <div class="question-title">3. كيف يصفك أصدقاؤك المقربون في العادة؟</div>
+                <div class="options-list">
+                    <label class="option-item">
+                        <input type="radio" name="q3" value="الهادئ والعميق" onclick="calculatePerfume()"> كتوم، حكيم، وصاحب نظرة عميقة
+                    </label>
+                    <label class="option-item">
+                        <input type="radio" name="q3" value="القيادي والمؤثر" onclick="calculatePerfume()"> جريء، واثق، وتحب لفت الأنظار
+                    </label>
+                    <label class="option-item">
+                        <input type="radio" name="q3" value="الفنان والمبدع" onclick="calculatePerfume()"> حالم، رومانسي، ولديك حس فني فريد
+                    </label>
+                </div>
+            </div>
+
+            <div class="question-group">
+                <div class="question-title">ارفع صورتك لتحليل ملامح شخصيتك وتحديد هالة عادلة لعطرك المجهول:</div>
+                <div class="upload-zone" onclick="document.getElementById('imageInput').click()">
+                    <span>اضغط هنا لرفع الصورة الشخصية أو الفنية تعبيراً عنك</span>
+                    <input type="file" id="imageInput" accept="image/*" style="display:none" onchange="handleImage(this)">
+                    <br>
+                    <img id="preview" class="preview-img" alt="معاينة الصورة">
+                </div>
+            </div>
+        </div>
+
+        <div class="perfume-card" id="card-alser">
+            <span class="perfume-badge">العطر الثالث</span>
+            <div class="perfume-title">الشرط / السر</div>
+            <div class="perfume-desc">العطر الأعظم في الباقة، يتكون من دمج توليفة عطر "أنا" مع عطر "الغموض" لينتج عطراً هجيناً يمثلك بالكامل وبشكل حصري.</div>
+            <p style="font-size: 0.9rem; color: var(--accent-color); font-style: italic;">* سيتم تركيبه آلياً بناءً على تداخل الروح والاختيارات أعلاه.</p>
+        </div>
+
+    </div>
+
+    <button class="btn-reveal" onclick="revealMysteriousPack()">اكتشف أسماء عطور باقتك الخاصة</button>
+
+    <div class="result-box" id="resultBox">
+        <h3>تفاصيل باقة "الأثر المجهول" الخاصة بك</h3>
+        
+        <div class="result-item">
+            <span>العطر الأول (أنا): </span>
+            <span class="result-name" id="res-ana">---</span>
+        </div>
+        
+        <div class="result-item">
+            <span>العطر الثاني (الغموض): </span>
+            <span class="result-name" id="res-ghomooz">---</span>
+        </div>
+        
+        <div class="result-item">
+            <span>العطر الثالث (السر): </span>
+            <span class="result-name" id="res-sirr">---</span>
+        </div>
+        
+        <p style="margin-top: 15px; color: var(--accent-color); font-size: 0.95rem;">تمت صياغة هذه التركيبة بناءً على معايير تحليل الشخصية والهوية البصرية الخاصة بك.</p>
     </div>
 </div>
 
 <script>
-    // تخزين النقاط لكل طابع شخصية
-    let scores = {
-        classic: 0,
-        modern: 0,
-        sporty: 0
-    };
-
-    // الانتقال للسؤال التالي وجمع النقاط
-    function nextQuestion(currentId, nextId, type, points) {
-        scores[type] += points;
-        document.getElementById(currentId).classList.remove('active');
-        document.getElementById(nextId).classList.add('active');
+    function handleImage(input) {
+        const preview = document.getElementById('preview');
+        if (input.files && input.files[0]) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                preview.src = e.target.result;
+                preview.style.display = 'inline-block';
+                calculatePerfume();
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
     }
 
-    // إنهاء الاختبار وعرض النتائج والخلاصة الـ JSON
-    function endQuiz(currentId, type, points) {
-        scores[type] += points;
-        document.getElementById(currentId).classList.remove('active');
-        
-        // تحديد الشخصية الطاغية بناءً على أعلى النقاط
-        let finalCharacter = Object.keys(scores).reduce((a, b) => scores[a] > scores[b] ? a : b);
-        
-        let characterName = "";
-        let analysis = "";
-        let suggestedGhamid = [];
-        let suggestedSirr = [];
+    function calculatePerfume() {
+        // الحصول على القيم المحددة من الأسئلة
+        const q1 = document.querySelector('input[name="q1"]:checked')?.value;
+        const q2 = document.querySelector('input[name="q2"]:checked')?.value;
+        const q3 = document.querySelector('input[name="q3"]:checked')?.value;
+        const hasImage = document.getElementById('imageInput').files.length > 0;
 
-        if (finalCharacter === 'classic') {
-            characterName = "شخصية كلاسيكية قيادية (Prestige & Power)";
-            analysis = "أنت شخص تعشق الفخامة الاستثنائية وتبحث عن فرض الهيبة والوقار في أي مكان تحل به. تميل للروائح العميقة والثابتة التي تعكس النضج والاتزان.";
-            suggestedGhamid = ["Premium Leather", "Black Coffee", "Agarwood"];
-            suggestedSirr = ["Smoked Wood & Amber"];
-        } else if (finalCharacter === 'modern') {
-            characterName = "شخصية عصرية غامضة (Modern & Mysterious)";
-            analysis = "شخصيتك جذابة، تحب التميز ومواكبة العصر بروح فريدة. يستهويك الغموض وتبحث عن عطر يلفت الانتباه ويكون بمثابة شفرة خاصة بك لا يشبهها أحد.";
-            suggestedGhamid = ["Dark Amber", "Spicy Saffron", "Cardamom"];
-            suggestedSirr = ["Oud-Modern Fusion"];
-        } else {
-            characterName = "شخصية رياضية حيوية (Dynamic & Fresh)";
-            analysis = "تتمتع بروح حركية، مفعمة بالنشاط والطاقة الإيجابية. تعشق الحرية والانتعاش الدائم، ولذلك فإن النوتات البحرية والحمضية اللاذعة هي المرآة الحقيقية لروحك.";
-            suggestedGhamid = ["Sea Salt Accord", "Italian Bergamot", "Mint Leaves"];
-            suggestedSirr = ["Citrus-Woody Freshness"];
+        // منطق تحديد اسم عطر "أنا" تلقائياً حسب الذوق المختار
+        let nameAna = "أثير الهوية";
+        if (q1 === "خشبية دافئة") {
+            nameAna = (q2 === "المسائي الفاخر") ? "خشب الصندل الداكن" : "سيدار الفجر الأطلسي";
+        } else if (q1 === "انتعاش الحمضيات") {
+            nameAna = (q2 === "المسائي الفاخر") ? "المندرين المخملي" : "السيتروس الإيطالي المنعش";
+        } else if (q1 === "الزهور النادرة") {
+            nameAna = (q2 === "المسائي الفاخر") ? "الأوركيد الأسود" : "ياسمين البراري النادر";
         }
 
-        // عرض النتيجة للزبون في الواجهة
-        document.getElementById('character-type').innerText = characterName;
-        document.getElementById('analysis-text').innerText = analysis;
+        // منطق تحديد اسم عطر "الغموض" حسب نمط الشخصية ووجود الصورة
+        let nameGhomooz = "الهالة المبهمة";
+        if (q3 === "الهادئ والعميق") {
+            nameGhomooz = hasImage ? "الظل الرمادي العتيق" : "السكوت الغامض";
+        } else if (q3 === "القيادي والمؤثر") {
+            nameGhomooz = hasImage ? "الكاريزما المطلقة" : "الهيبة الإمبراطورية";
+        } else if (q3 === "الفنان والمبدع") {
+            nameGhomooz = hasImage ? "السريالية العطرية" : "طيف الخيال العذب";
+        }
 
-        // توليد خلاصة الكود (JSON Summary) لصاحب المتجر
-        let orderSummary = {
-            "timestamp": new Date().toISOString().split('T')[0],
-            "customer_analysis": {
-                "dominant_trait": finalCharacter.toUpperCase(),
-                "profile_title": characterName,
-                "scores_metric": scores
-            },
-            "suggested_trilogy": {
-                "perfume_1_ana": "حسب اختيار الزبون المباشر",
-                "perfume_2_al_ghamid": {
-                    "vibe": "مستوحى من تحليل الشخصية أعلاه",
-                    "recommended_notes": suggestedGhamid
-                },
-                "perfume_3_al_sirr": {
-                    "vibe": "دمج مبتكر بين 'أنا' و 'الغامض'",
-                    "recommended_notes": suggestedSirr
-                }
-            }
-        };
+        // منطق تحديد اسم عطر "السر" (دمج ذكي وتلقائي لاسم الأول والثاني)
+        let nameSirr = "اندماج مجهول";
+        if(q1 && q3) {
+            const prefix = nameAna.split(' ')[0];
+            const suffix = nameGhomooz.split(' ').pop();
+            nameSirr = "سر " + prefix + " " + suffix;
+        }
 
-        // طباعة الكود في خانة الـ Pre
-        document.getElementById('json-output').innerText = JSON.stringify(orderSummary, null, 2);
-        document.getElementById('result').style.display = 'block';
+        // تحديث النصوص في واجهة العرض عند الحساب
+        document.getElementById('res-ana').innerText = q1 ? nameAna : "يرجى الإجابة على أسئلة عطر 'أنا'";
+        document.getElementById('res-ghomooz').innerText = q3 ? nameGhomooz : "يرجى الإجابة على أسئلة عطر 'الغموض'";
+        document.getElementById('res-sirr').innerText = (q1 && q3) ? nameSirr : "يتحقق بعد اكتمال أنا والغموض";
+    }
+
+    function revealMysteriousPack() {
+        const q1 = document.querySelector('input[name="q1"]:checked');
+        const q2 = document.querySelector('input[name="q2"]:checked');
+        const q3 = document.querySelector('input[name="q3"]:checked');
+
+        if (!q1 || !q2 || !q3) {
+            alert("يرجى الإجابة على جميع الأسئلة المطروحة لتوليد الباقة بدقة!");
+            return;
+        }
+
+        calculatePerfume();
+        const resultBox = document.getElementById('resultBox');
+        resultBox.style.display = 'block';
+        resultBox.scrollIntoView({ behavior: 'smooth' });
     }
 </script>
 
